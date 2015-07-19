@@ -9,5 +9,5 @@ node_js:
 
 # Needed to compile TypeScript definitions and test files.
 # Also build dt-init from TypeScript source first (but this uses gulp-typescript).
-before_script: npm install -g typescript && npm run build && ls -l -a
+before_script: npm install -g typescript && npm run build
 script: ./test-mocha # Invoke mocha tests for dt-init.
