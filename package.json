@@ -1,6 +1,6 @@
 {
   "name": "dt-init",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Like npm init but for generating TypeScript definitions and tests stubs",
   "main": "dt-init-lib.js",
   "bin": {
