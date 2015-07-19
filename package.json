@@ -1,0 +1,35 @@
+{
+  "name": "dt-init",
+  "version": "1.0.0",
+  "description": "Like npm init but for generating TypeScript definitions and tests stubs",
+  "main": "dt-init.js",
+  "scripts": {
+    "test": "node node_modules/bin/mocha/mocha dt-init-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stpettersens/dt-init"
+  },
+  "keywords": [
+    "typescript",
+    "definition",
+    "generator",
+    "tool",
+    "utility"
+  ],
+  "author": "Sam Saint-Pettersen <s.stpettersen+github@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stpettersens/dt-init/issues"
+  },
+  "devDependencies": {
+    "gulp": "~3.9.0",
+    "gulp-typescript": "~2.7.8",
+    "tsd": "~0.6.3",
+    "gulp-insert": "~0.4.0"
+  },
+  "dependencies": {
+    "camel-case": "~1.1.2",
+    "git-config": "0.0.7"
+  }
+}
