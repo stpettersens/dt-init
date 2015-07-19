@@ -23,5 +23,4 @@ Install the [TypeScript compiler](http://www.typescriptlang.org) first if necess
 `npm install -g typescript`
 
 Specify *.gitconfig* parameter if you want to use a different Git configuration
-file to the user's default.
- 
+file to the user's default. These values are used in the generated type definitions stubs.
