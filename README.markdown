@@ -7,7 +7,7 @@ Like `npm init` but for generating TypeScript definitions and tests stubs.
 
 Install: `npm install -g dt-init`
 
-Usage: `dt-init module-name` which will generate the stubs and retrieve the module
+Usage: `dt-init module-name [.gitconfig]` which will generate the stubs and retrieve the module
 you plan to write the definitions and tests for, resulting in a directory tree such as:
 
     module-name/ 
@@ -21,3 +21,7 @@ within *module-name* you can invoke `npm test` to compile and run them.
 
 Install the [TypeScript compiler](http://www.typescriptlang.org) first if necessary with: 
 `npm install -g typescript`
+
+Specify *.gitconfig* parameter if you want to use a different Git configuration
+file to the user's default.
+ 
