@@ -5,6 +5,8 @@
 
 Like `npm init` but for generating TypeScript definitions and tests stubs.
 
+Install: `npm install -g dt-init`
+
 Usage: `dt-init module-name` which will generate the stubs and retrieve the module
 you plan to write the definitions and tests for, resulting in a directory tree such as:
 
