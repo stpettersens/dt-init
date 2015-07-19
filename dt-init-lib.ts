@@ -17,13 +17,17 @@ import gitConfig = require('git-config');
 
 class DTInit {
     private module: string;
+    private gitFile: string;
     private username: string;
     private fullname: string;
     private email: string;
     private license: string;
 
     private readGitFile(): void {
-	var git: Object = gitConfig.sync();
+	var git: Object = gitConfig.sync()
+	if(this.gitFile != null) {
+	    git = gitConfig.sync(gitFile);
+	}
 	this.fullname = git['user']['name'];
 	this.email = git['user']['email'];
 	var config: Object = {
@@ -92,7 +96,11 @@ class DTInit {
 	cp.exec('npm install --save ' + this.module, function() {});
     }
     
-    public constructor(module: string) {
+    public constructor(module: string, gitFile?: string) {
+	this.gitFile = null;
+	if(gitFile != null) {
+	   this.gitFile = gitFile;
+	}
 	if(module == null) {
 	   console.log('Please specify a module name.');
            process.exit(1);

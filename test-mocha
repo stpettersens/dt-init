@@ -4,6 +4,8 @@ if [ -d shortid ]; then
     rm -r -f shortid
 fi
 npm test
+cat shortid/shortid.d.ts && echo ""
+cat shortid/shortid-tests.ts && echo ""
 echo '#!/bin/sh\nnpm test' > shortid/test-tsc
 chmod +x shortid/test-tsc
 cd shortid

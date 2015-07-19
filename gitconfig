@@ -1,0 +1,5 @@
+[user]
+	name = Sam Saint-Pettersen
+	email = s.stpettersen+github@gmail.com
+[push]
+	default = simple
