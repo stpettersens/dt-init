@@ -1,6 +1,7 @@
 .gitignore
 *.ts
 typings/
+dt-init.test.js
 Gulpfile.js
 dt-init-config.json
 
