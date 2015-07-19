@@ -94,7 +94,7 @@ class DTInit {
     
     public constructor(module: string) {
 	this.module = module;
-	console.log('Generating stubs for ' + this.module);
+	console.log('Generating stubs for ' + this.module + '...');
 	this.readGitFile();
 	this.configure();
 	this.createDir();
