@@ -5,3 +5,6 @@ dt-init.test.js
 Gulpfile.js
 dt-init-config.json
 test-mocha
+node_modules/
+shortid/
+
