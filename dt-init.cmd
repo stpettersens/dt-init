@@ -1,3 +1,0 @@
-@node ./dt-init.js %*
-
-
