@@ -4,10 +4,11 @@
   "description": "Like npm init but for generating TypeScript definitions and tests stubs",
   "main": "dt-init.js",
   "bin": {
-	"dt-init": "node ./dt-init"
+	"dt-init": "./dt-init"
   },
   "preferGlobal": true,
   "scripts": {
+    "cmd": "./dt-init cson",
     "test": "node node_modules/bin/mocha/mocha dt-init-test.js"
   },
   "repository": {
