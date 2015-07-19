@@ -93,6 +93,10 @@ class DTInit {
     }
     
     public constructor(module: string) {
+	if(module == null) {
+	   console.log('Please specify a module name.');
+           process.exit(1);
+	}
 	this.module = module;
 	console.log('Generating stubs for ' + this.module + '...');
 	this.readGitFile();
