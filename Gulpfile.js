@@ -1,6 +1,5 @@
 var gulp = require('gulp'),
       fs = require('fs'),
-    exec = require('child_process').exec;
      tsc = require('gulp-typescript'),
   rename = require('gulp-rename'),
   insert = require('gulp-insert');
@@ -30,8 +29,6 @@ gulp.task('bin', function() {
     .pipe(gulp.dest('.'))
     .pipe(rename('dt-init'))
     .pipe(gulp.dest('.'));
-    //exec('./dos2unix dt-init', function(){});
-    //exec('chmod +x dt-init', function(){});
 });
 
 gulp.task('clean', function() {
