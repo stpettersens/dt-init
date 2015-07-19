@@ -18,5 +18,6 @@ you plan to write the definitions and tests for, resulting in a directory tree s
 
 After you have finished your TypeScript definitions and tests, 
 within *module-name* you can invoke `npm test` to compile and run them.
-Install the [TypeScript compiler](http://www.typescriptlang.org) first if necessary with:
+
+Install the [TypeScript compiler](http://www.typescriptlang.org) first if necessary with: 
 `npm install -g typescript`
