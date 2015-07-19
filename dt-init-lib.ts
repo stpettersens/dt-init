@@ -26,7 +26,7 @@ class DTInit {
     private readGitFile(): void {
 	var git: Object = gitConfig.sync()
 	if(this.gitFile != null) {
-	    git = gitConfig.sync(gitFile);
+	    git = gitConfig.sync(this.gitFile);
 	}
 	this.fullname = git['user']['name'];
 	this.email = git['user']['email'];
