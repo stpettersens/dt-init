@@ -1,0 +1,16 @@
+#!/bin/sh
+cd $(dirname $0)
+if [ -d shortid ]; then
+    rm -r -f shortid
+fi
+npm test
+echo '#!/bin/sh\nnpm test' > shortid/test-tsc
+chmod +x shortid/test-tsc
+cd shortid
+./test-tsc
+rm -r -f shortid
+
+
+
+
+

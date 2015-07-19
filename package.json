@@ -8,8 +8,8 @@
   },
   "preferGlobal": true,
   "scripts": {
-    "cmd": "./dt-init cson",
-    "test": "node node_modules/bin/mocha/mocha dt-init-test.js"
+    "build": "gulp",
+    "test": "node node_modules/mocha/bin/mocha dt-init.test.js --timeout 50000"
   },
   "repository": {
     "type": "git",
