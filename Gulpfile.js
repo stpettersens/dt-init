@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+      fs = require('fs'),
     exec = require('child_process').exec;
      tsc = require('gulp-typescript'),
   rename = require('gulp-rename'),
@@ -25,12 +26,18 @@ gulp.task('bin', function() {
 	removeComments: true
     }))
     .pipe(insert.prepend(header))
-    .pipe(insert.prepend('#!/usr/bin/env node\r\n'))
+    .pipe(insert.prepend('#!/usr/bin/env node\n'))
     .pipe(gulp.dest('.'))
     .pipe(rename('dt-init'))
     .pipe(gulp.dest('.'));
-    exec('chmod +x dt-init', function(){ console.log('chmod +x dt-init'); });
+    //exec('./dos2unix dt-init', function(){});
+    //exec('chmod +x dt-init', function(){});
+});
+
+gulp.task('clean', function() {
+    fs.unlinkSync('dt-init-lib.js');
+    fs.unlinkSync('dt-init.js');
+    fs.unlinkSync('dt-init');
 });
 
 gulp.task('default', ['lib', 'bin'], function(){});
-

@@ -101,6 +101,7 @@ class DTInit {
 	this.generatePackage();
 	this.generateDefStub();
 	this.generateTestStub();
+        console.log('Installing module...');
 	this.installModule();
     }
 } 
