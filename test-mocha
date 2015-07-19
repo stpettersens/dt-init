@@ -11,8 +11,3 @@ chmod +x shortid/test-tsc
 cd shortid
 ./test-tsc
 rm -r -f shortid
-
-
-
-
-
