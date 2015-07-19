@@ -1,8 +1,12 @@
 {
   "name": "dt-init",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Like npm init but for generating TypeScript definitions and tests stubs",
   "main": "dt-init.js",
+  "bin: {
+	"dt-init": "node ./dt-init"
+  },
+  "preferGlobal": true,
   "scripts": {
     "test": "node node_modules/bin/mocha/mocha dt-init-test.js"
   },
