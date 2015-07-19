@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "description": "Like npm init but for generating TypeScript definitions and tests stubs",
   "main": "dt-init.js",
-  "bin: {
+  "bin": {
 	"dt-init": "node ./dt-init"
   },
   "preferGlobal": true,
