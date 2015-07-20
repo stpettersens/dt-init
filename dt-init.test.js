@@ -4,7 +4,7 @@ var DTInit = require('./dt-init-lib'),
 
 describe('Test DTInit utility', function() {
     it('Generate definitions & test stubs for shortid', function(done) {
-      	new DTInit('shortid', 'gitconfig');
+      	new DTInit('shortid', null, 'gitconfig');
       	var files = glob.sync('*');
       	files[0].should.equal('package.json').and.be.a.String;
       	files[1].should.equal('shortid-tests.ts').and.be.a.String;

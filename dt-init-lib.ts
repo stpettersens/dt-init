@@ -16,8 +16,10 @@ import camelCase = require('camel-case');
 import gitConfig = require('git-config');
 
 class DTInit {
+    private version: string;
     private module: string;
     private gitFile: string;
+    private bower: boolean;
     private username: string;
     private fullname: string;
     private email: string;
@@ -53,7 +55,7 @@ class DTInit {
       	 fs.mkdirSync(this.module);
     }
 
-    private generatePackage(): void {
+    private generateNpmPackage(): void {
         var dt: string = 'dt-' + this.module;
   	    var def: string = this.module + '.d.ts';
   	    var tst: string = this.module + '-tests.ts';
@@ -61,6 +63,7 @@ class DTInit {
   	    var pkg: Object = {
       	    name: dt,
       	    version: '0.0.0',
+            description: 'TypeScript definitions and tests for ' + this.module,
       	    main: def,
       	    scripts: {
     		    test: 'tsc --module commonjs ' + tst + ' && node ' + tstjs
@@ -72,6 +75,37 @@ class DTInit {
     	     license: this.license
     	  };
   	   fs.writeFileSync(this.module + '/package.json', JSON.stringify(pkg, null, 4));
+    }
+
+    private generateBowerPackage(): void {
+        var dt: string = 'dt-' + this.module;
+        var def: string = this.module + '.d.ts';
+        var dep: Object = {};
+        dep[this.module] = 'latest';
+        var pkg: Object = {
+            name: dt,
+            version: '0.0.0',
+            description: 'TypeScript definitions and tests for ' + this.module,
+            main: def,
+            dependencies: dep,
+            authors: [
+              this.fullname + ' <' + this.email + '>'
+            ],
+            license: this.license,
+            keywords: [
+              'type',
+              'definitions',
+              this.module
+            ],
+            ignore: [
+              '**/.*',
+              'node_modules',
+              'bower_components',
+              'test',
+              'tests'
+            ]
+        };
+        fs.writeFileSync(this.module + '/bower.json', JSON.stringify(pkg, null, 4));
     }
 
     private generateDefStub(): void {
@@ -93,27 +127,57 @@ class DTInit {
 
     private installModule(): void {
       	process.chdir(this.module);
+        if(this.bower) cp.exec('bower install', function() {});
       	cp.exec('npm install --save ' + this.module, function() {});
     }
 
-    public constructor(module: string, gitFile?: string) {
+    private displayVersion(): void {
+        console.log('dt-init v. ' + this.version);
+        process.exit(0);
+    }
+
+    private displayHelp(): void {
+        console.log('Utility to generate TypeScript definitions and test stubs.');
+        console.log('Copyright 2015 Sam Saint-Pettersen [MIT License]\n');
+        console.log('Usage: dt-init module-name [-b|--bower gitconfig][--h|--help|-v|--version]\n');
+        console.log('module-name    : Module to generate stubs for.');
+        console.log('-b | --bower   : Also generate a bower.json package file for client-side dependencies.');
+        console.log('gitconfig      : Git configuration file to use for user values (instead of default).');
+        console.log('-h | --help    : Display this usage information and exit.');
+        console.log('-v | --version : Display application version and exit.');
+    }
+
+    public constructor(module: string, bower?: string, gitFile?: string) {
+        this.version = '1.0.8';
       	this.gitFile = null;
+        this.bower = false;
       	if(gitFile != null) {
-      	   this.gitFile = gitFile;
+      	  this.gitFile = gitFile;
       	}
-      	if(module == null) {
-      	   console.log('Please specify a module name.');
-           process.exit(1);
+        if(module == '-h' || module == '--help') {
+          this.displayHelp();
+          process.exit(0);
+        }
+        else if(module == 'v' || module == '--version') {
+          this.displayVersion();
+        }
+      	if(module == null || module[0] == '-') {
+          console.log('Please specify a valid module name.\n');
+          this.displayHelp();
+          process.exit(1);
       	}
       	this.module = module;
-      	console.log('Generating stubs for ' + this.module + '...');
+      	console.log('Generating stubs and installing module(s) for ' + this.module + '...');
       	this.readGitFile();
       	this.configure();
       	this.createDir();
-      	this.generatePackage();
+        if(bower == '-b' || bower == '--bower') {
+            this.bower = true;
+            this.generateBowerPackage();
+        }
+        this.generateNpmPackage();
       	this.generateDefStub();
       	this.generateTestStub();
-        console.log('Installing module...');
       	this.installModule();
     }
 }

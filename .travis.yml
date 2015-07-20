@@ -9,6 +9,7 @@ node_js:
     - 0.11
 
 # Install TypeScript compiler to compile definitions and test files.
-# Also build dt-init from TypeScript source first (but this uses gulp-typescript).
-before_script: npm install -g typescript && npm run build
+# Install bower which is used to retrieve client-side dependencies.
+# Build dt-init from TypeScript source first (but this uses gulp-typescript).
+before_script: npm install -g typescript bower && npm run build
 script: ./test-mocha # Invoke mocha tests for dt-init.
