@@ -12,14 +12,17 @@ var header = '/*\r\ndt-init\r\nUtility to generate TypeScript definitions' +
 ' and test stubs.\r\nCopyright 2015 Sam Saint-Pettersen.\r\n\r\n' +
 'Released under the MIT License.\r\n*/\r\n';
 
-var typings = [ 'node', 'camel-case', 'git-config' ];
+var typings = ['node', 'camel-case', 'git-config'];
 
 gulp.task('typings', function() {
-  for(var i = 0; i < typings.length; i++) {
-    exec('tsc install ' + typings[i], function(err, stdout, stderr) {
-      console.log(stdout);
-    });
-  }
+    if(!fs.existsSync('typings')) {
+      for(var i = 0; i < typings.length; i++) {
+        exec('tsd install ' + typings[i], function() {});
+      }
+    }
+    else {
+      console.log('\nDefinitions already present, skipping...\n');
+    }
 });
 
 gulp.task('lib', function() {
@@ -51,4 +54,4 @@ gulp.task('clean', function() {
     fs.unlinkSync('dt-init');
 });
 
-gulp.task('default', [ 'typings', 'lib', 'bin' ], function(){});
+gulp.task('default', ['lib', 'bin'], function(){});

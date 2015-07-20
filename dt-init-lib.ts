@@ -24,97 +24,97 @@ class DTInit {
     private license: string;
 
     private readGitFile(): void {
-	var git: Object = gitConfig.sync()
-	if(this.gitFile != null) {
-	    git = gitConfig.sync(this.gitFile);
-	}
-	this.fullname = git['user']['name'];
-	this.email = git['user']['email'];
-	var config: Object = {
-	    username: 'YOUR_USERNAME',
-	    fullname: this.fullname,
-	    email: this.email
-	};
-	if(!fs.existsSync('dt-init-config.json')) {
-	    fs.writeFileSync('dt-init-config.json', JSON.stringify(config, null, 4));
-	}
+      	var git: Object = gitConfig.sync()
+      	if(this.gitFile != null) {
+      	    git = gitConfig.sync(this.gitFile);
+      	}
+  	    this.fullname = git['user']['name'];
+  	    this.email = git['user']['email'];
+  	    var config: Object = {
+  	       username: 'YOUR_USERNAME',
+  	       fullname: this.fullname,
+  	       email: this.email
+  	    };
+  	    if(!fs.existsSync('dt-init-config.json')) {
+  	       fs.writeFileSync('dt-init-config.json', JSON.stringify(config, null, 4));
+  	    }
     }
 
     private configure(): void {
-	var cf: any = fs.readFileSync('dt-init-config.json');
-	var config: Object = JSON.parse(cf);
-	this.username = config['username'];
-	this.fullname = config['fullname'];
-	this.email = config['email'];
-	this.license = config['license'];
+      	var cf: any = fs.readFileSync('dt-init-config.json');
+      	var config: Object = JSON.parse(cf);
+      	this.username = config['username'];
+      	this.fullname = config['fullname'];
+      	this.email = config['email'];
+      	this.license = config['license'];
     }
 
     private createDir(): void {
-	fs.mkdirSync(this.module);
+      	 fs.mkdirSync(this.module);
     }
 
     private generatePackage(): void {
         var dt: string = 'dt-' + this.module;
-	var def: string = this.module + '.d.ts';
-	var tst: string = this.module + '-tests.ts';
-	var tstjs: string = this.module + '-tests.js';
-	var pkg: Object = {
-	    name: dt,
-	    version: '0.0.0',
-	    main: def,
-	    scripts: {
-		test: 'tsc --module commonjs ' + tst + ' && node ' + tstjs
-	    },
-	    keywords: [
-		'type definitions ' + this.module
-	    ],
-	    author: this.fullname + ' <' + this.email + '>',
-	    license: this.license
-	};
-	fs.writeFileSync(this.module + '/package.json', JSON.stringify(pkg, null, 4));
+  	    var def: string = this.module + '.d.ts';
+  	    var tst: string = this.module + '-tests.ts';
+  	    var tstjs: string = this.module + '-tests.js';
+  	    var pkg: Object = {
+      	    name: dt,
+      	    version: '0.0.0',
+      	    main: def,
+      	    scripts: {
+    		    test: 'tsc --module commonjs ' + tst + ' && node ' + tstjs
+    	     },
+    	     keywords: [
+    		    'type definitions ' + this.module
+    	     ],
+    	     author: this.fullname + ' <' + this.email + '>',
+    	     license: this.license
+    	  };
+  	   fs.writeFileSync(this.module + '/package.json', JSON.stringify(pkg, null, 4));
     }
 
     private generateDefStub(): void {
-	var def: string = '// Type definitions for ' + this.module + '\r\n' +
-	'// Project: https://github.com/USERNAME/' + this.module + '\r\n' +
-	'// Definitions by: ' + this.fullname + ' <https://github.com/' +
-	this.username + '>\r\n// Definitions: https://github.com/borisyankov/' +
-	'DefinitelyTyped\r\n\r\ndeclare module "' + this.module + '" {\r\n' +
-	'    // Implementation here...\r\n}';
-	fs.writeFileSync(this.module + '/' + this.module + '.d.ts', def);
+      	var def: string = '// Type definitions for ' + this.module + '\r\n' +
+      	'// Project: https://github.com/USERNAME/' + this.module + '\r\n' +
+      	'// Definitions by: ' + this.fullname + ' <https://github.com/' +
+      	this.username + '>\r\n// Definitions: https://github.com/borisyankov/' +
+      	'DefinitelyTyped\r\n\r\ndeclare module "' + this.module + '" {\r\n' +
+      	'    // Implementation here...\r\n}';
+      	fs.writeFileSync(this.module + '/' + this.module + '.d.ts', def);
     }
 
     private generateTestStub(): void {
-	var tests: string = '/// <reference path="' + this.module + '.d.ts" />\r\n' +
-	'\r\nimport ' + camelCase(this.module) + ' = require(\'' + this.module + '\');\r\n\r\n' +
-	'// Tests here...\r\n';
-	fs.writeFileSync(this.module + '/' + this.module + '-tests.ts', tests);
-    }  
+      	var tests: string = '/// <reference path="' + this.module + '.d.ts" />\r\n' +
+      	'\r\nimport ' + camelCase(this.module) + ' = require(\'' + this.module + '\');\r\n\r\n' +
+      	'// Tests here...\r\n';
+      	fs.writeFileSync(this.module + '/' + this.module + '-tests.ts', tests);
+    }
 
     private installModule(): void {
-	process.chdir(this.module);
-	cp.exec('npm install --save ' + this.module, function() {});
+      	process.chdir(this.module);
+      	cp.exec('npm install --save ' + this.module, function() {});
     }
-    
+
     public constructor(module: string, gitFile?: string) {
-	this.gitFile = null;
-	if(gitFile != null) {
-	   this.gitFile = gitFile;
-	}
-	if(module == null) {
-	   console.log('Please specify a module name.');
+      	this.gitFile = null;
+      	if(gitFile != null) {
+      	   this.gitFile = gitFile;
+      	}
+      	if(module == null) {
+      	   console.log('Please specify a module name.');
            process.exit(1);
-	}
-	this.module = module;
-	console.log('Generating stubs for ' + this.module + '...');
-	this.readGitFile();
-	this.configure();
-	this.createDir();
-	this.generatePackage();
-	this.generateDefStub();
-	this.generateTestStub();
+      	}
+      	this.module = module;
+      	console.log('Generating stubs for ' + this.module + '...');
+      	this.readGitFile();
+      	this.configure();
+      	this.createDir();
+      	this.generatePackage();
+      	this.generateDefStub();
+      	this.generateTestStub();
         console.log('Installing module...');
-	this.installModule();
+      	this.installModule();
     }
-} 
+}
 export = DTInit;
