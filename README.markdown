@@ -7,7 +7,7 @@ Like `npm init` but for generating TypeScript definitions and tests stubs.
 
 Install: `npm install -g dt-init`
     
-    Usage: dt-init module-name [-b|--bower gitconfig][--h|--help|-v|--version]
+    Usage: dt-init module-name [-b|--bower gitconfig][-h|--help|-v|--version]
     
     module-name    : Module to generate stubs for.
     -b | --bower   : Also generate a bower.json package file for client-side dependencies.
