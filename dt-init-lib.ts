@@ -148,7 +148,7 @@ class DTInit {
     }
 
     public constructor(module: string, bower?: string, gitFile?: string) {
-        this.version = '1.0.8';
+        this.version = '1.0.9';
       	this.gitFile = null;
         this.bower = false;
       	if(gitFile != null) {
