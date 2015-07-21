@@ -5,6 +5,7 @@ dt-init.test.js
 Gulpfile.js
 dt-init-config.json
 test-mocha
+test-mocha.cmd
 node_modules/
 bower_components/
 shortid/
