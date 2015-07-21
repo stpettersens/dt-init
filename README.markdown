@@ -6,17 +6,14 @@
 Like `npm init` but for generating TypeScript definitions and tests stubs.
 
 Install: `npm install -g dt-init`
-
-Utility to generate TypeScript definitions and test stubs.
-Copyright 2015 Sam Saint-Pettersen [MIT License]
-
-Usage: dt-init module-name [-b|--bower gitconfig][--h|--help|-v|--version]
-
-module-name    : Module to generate stubs for.
--b | --bower   : Also generate a bower.json package file for client-side dependencies.
-gitconfig      : Git configuration file to use for user values (instead of default).
--h | --help    : Display this usage information and exit.
--v | --version : Display application version and exit.
+    
+    Usage: dt-init module-name [-b|--bower gitconfig][--h|--help|-v|--version]
+    
+    module-name    : Module to generate stubs for.
+    -b | --bower   : Also generate a bower.json package file for client-side dependencies.
+    gitconfig      : Git configuration file to use for user values (instead of default).
+    -h | --help    : Display this usage information and exit.
+    -v | --version : Display application version and exit.
 
 Running `dt-init module-name -b` which will generate the stubs (with *package.json* and *bower.json*)  and retrieve the module you plan to write the definitions and tests for, resulting in a directory tree such as:
 
