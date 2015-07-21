@@ -1,3 +1,4 @@
+.npmignore
 .gitignore
 *.ts
 typings/
@@ -10,3 +11,4 @@ node_modules/
 bower_components/
 shortid/
 gitconfig
+README.markdown
