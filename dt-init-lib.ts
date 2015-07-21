@@ -139,7 +139,7 @@ class DTInit {
     private displayHelp(): void {
         console.log('Utility to generate TypeScript definitions and test stubs.');
         console.log('Copyright 2015 Sam Saint-Pettersen [MIT License]\n');
-        console.log('Usage: dt-init module-name [-b|--bower gitconfig][--h|--help|-v|--version]\n');
+        console.log('Usage: dt-init module-name [-b|--bower gitconfig][-h|--help|-v|--version]\n');
         console.log('module-name    : Module to generate stubs for.');
         console.log('-b | --bower   : Also generate a bower.json package file for client-side dependencies.');
         console.log('gitconfig      : Git configuration file to use for user values (instead of default).');
@@ -158,7 +158,7 @@ class DTInit {
           this.displayHelp();
           process.exit(0);
         }
-        else if(module == 'v' || module == '--version') {
+        else if(module == '-v' || module == '--version') {
           this.displayVersion();
         }
       	if(module == null || module[0] == '-') {
