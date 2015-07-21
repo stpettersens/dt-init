@@ -32,5 +32,8 @@ within *module-name* you can invoke `npm test` to compile and run them.
 Install the [TypeScript compiler](http://www.typescriptlang.org) first if necessary with: 
 `npm install -g typescript`
 
+If you want to use the -b option, you will need to have [Bower](http://bower.io) installed:
+`npm install -g bower`
+
 Specify *.gitconfig* parameter if you want to use a different Git configuration
 file to the user's default. These values are used in the generated type definitions stubs.
