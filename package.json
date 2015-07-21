@@ -1,6 +1,6 @@
 {
   "name": "dt-init",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Like npm init but for generating TypeScript definitions and tests stubs",
   "main": "dt-init-lib.js",
   "bin": {
@@ -34,6 +34,7 @@
     "gulp-rename": "~1.2.2",
     "gulp-typescript": "~2.8.0",
     "mocha": "~2.2.5",
+    "remove-markdown": "0.0.6",
     "should": "~7.0.2",
     "tsd": "~0.6.3"
   },

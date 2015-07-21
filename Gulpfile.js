@@ -3,6 +3,7 @@
 */
 var gulp = require('gulp'),
       fs = require('fs'),
+     rMD = require('remove-markdown'),
     exec = require('child_process').exec,
      tsc = require('gulp-typescript'),
   rename = require('gulp-rename'),
@@ -48,10 +49,16 @@ gulp.task('bin', function() {
     .pipe(gulp.dest('.'));
 });
 
+gulp.task('readme', function() {
+    fs.writeFileSync('readme.txt', rMD(fs.readFileSync('README.markdown').toString()));
+    return gulp.src()
+});
+
 gulp.task('clean', function() {
     fs.unlinkSync('dt-init-lib.js');
     fs.unlinkSync('dt-init.js');
     fs.unlinkSync('dt-init');
+    fs.unlinkSync('readme.txt');
 });
 
-gulp.task('default', ['lib', 'bin'], function(){});
+gulp.task('default', ['lib', 'bin', 'readme'], function(){});
