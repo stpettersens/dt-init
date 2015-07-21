@@ -1,5 +1,6 @@
 .npmignore
 .gitignore
+.travis.yml
 *.ts
 typings/
 dt-init.test.js
