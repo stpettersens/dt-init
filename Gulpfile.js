@@ -51,7 +51,6 @@ gulp.task('bin', function() {
 
 gulp.task('readme', function() {
     fs.writeFileSync('readme.txt', rMD(fs.readFileSync('README.markdown').toString()));
-    return gulp.src()
 });
 
 gulp.task('clean', function() {
