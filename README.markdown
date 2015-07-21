@@ -15,7 +15,7 @@ Install: `npm install -g dt-init`
     -h | --help    : Display this usage information and exit.
     -v | --version : Display application version and exit.
 
-Running `dt-init module-name -b` which will generate the stubs (with *package.json* and *bower.json*)  and retrieve the module you plan to write the definitions and tests for, resulting in a directory tree such as:
+Running `dt-init module-name -b` will generate the stubs (with *package.json* and *bower.json*) and retrieve the module you plan to write the definitions and tests for. This results in a directory tree such as:
 
     module-name/ 
     ├── bower.json
