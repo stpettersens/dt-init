@@ -30,8 +30,8 @@ gulp.task('typings', function() {
 gulp.task('lib', function() {
     return gulp.src('dt-init-lib.ts')
     .pipe(tsc({
-	     module: 'commonjs',
-	     removeComments: true
+    	module: 'commonjs',
+	    removeComments: true
     }))
     .pipe(insert.prepend(header))
     .pipe(gulp.dest('.'));
@@ -40,8 +40,8 @@ gulp.task('lib', function() {
 gulp.task('bin', function() {
     return gulp.src('dt-init.ts')
     .pipe(tsc({
-	     module: 'commonjs',
-	     removeComments: true
+    	module: 'commonjs',
+    	removeComments: true
     }))
     .pipe(insert.prepend(header))
     .pipe(insert.prepend('#!/usr/bin/env node\n'))
