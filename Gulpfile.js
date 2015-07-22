@@ -7,7 +7,8 @@ var gulp = require('gulp'),
      tsc = require('gulp-typescript'),
   rename = require('gulp-rename'),
   insert = require('gulp-insert');
-removeMD = require('gulp-remove-markdown');
+  
+var removeMarkDown = require('gulp-remove-markdown');
 
 var header = '/*\r\ndt-init\r\nUtility to generate TypeScript definitions' +
 ' and test stubs.\r\nCopyright 2015 Sam Saint-Pettersen.\r\n\r\n' +
@@ -51,7 +52,7 @@ gulp.task('bin', function() {
 
 gulp.task('readme', function() {
     return gulp.src('README.markdown')
-    .pipe(removeMD())
+    .pipe(removeMarkdown())
     .pipe(gulp.dest('.'));
 });
 
