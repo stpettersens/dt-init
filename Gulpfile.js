@@ -6,6 +6,7 @@ var gulp = require('gulp'),
     exec = require('child_process').exec,
      tsc = require('gulp-typescript'),
   rename = require('gulp-rename'),
+ replace = require('gulp-replace'),
   insert = require('gulp-insert');
 
 var removeMarkdown = require('gulp-remove-markdown');
@@ -24,6 +25,7 @@ gulp.task('lib', function() {
     	module: 'commonjs',
     	removeComments: true
     }))
+    .pipe(replace(/\/{3}\s*<reference path=.*\/>\r*\n*/g, ''))
     .pipe(gulp.dest('.'));
 });
 
@@ -33,6 +35,7 @@ gulp.task('bin', function() {
     	module: 'commonjs',
     	removeComments: true
     }))
+    .pipe(replace(/\/{3}\s*<reference path=.*\/>\r*\n*/g, ''))
     .pipe(insert.prepend(header))
     .pipe(insert.prepend('#!/usr/bin/env node\n'))
     .pipe(gulp.dest('.'))
