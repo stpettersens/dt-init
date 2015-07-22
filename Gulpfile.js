@@ -7,24 +7,15 @@ var gulp = require('gulp'),
      tsc = require('gulp-typescript'),
   rename = require('gulp-rename'),
   insert = require('gulp-insert');
-  
+
 var removeMarkdown = require('gulp-remove-markdown');
 
 var header = '/*\r\ndt-init\r\nUtility to generate TypeScript definitions' +
 ' and test stubs.\r\nCopyright 2015 Sam Saint-Pettersen.\r\n\r\n' +
 'Released under the MIT License.\r\n*/\r\n';
 
-var typings = ['node', 'camel-case', 'git-config'];
-
 gulp.task('typings', function() {
-    if(!fs.existsSync('typings')) {
-      for(var i = 0; i < typings.length; i++) {
-        exec('tsd install ' + typings[i], function() {});
-      }
-    }
-    else {
-      console.log('\nDefinitions already present, skipping...\n');
-    }
+    exec('tsd install', function() {});
 });
 
 gulp.task('lib', function() {
