@@ -24,7 +24,6 @@ gulp.task('lib', function() {
     	module: 'commonjs',
     	removeComments: true
     }))
-    .pipe(insert.prepend(header))
     .pipe(gulp.dest('.'));
 });
 
