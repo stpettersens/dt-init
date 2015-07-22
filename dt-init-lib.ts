@@ -61,14 +61,8 @@ class DTInit {
       	if(this.gitFile != null) {
       	    git = gitConfig.sync(this.gitFile);
       	}
-        if(git['user']['name'] != null) {
-          this.fullname = git['user']['name'];
-          this.email = git['user']['email'];
-        }
-        else {
-          this.fullname = 'YOUR_NAME';
-          this.email = 'YOUR_EMAIL_ADDRESS';
-        }
+        this.fullname = git['user']['name'];
+        this.email = git['user']['email'];
   	    var config: Object = {
            colors: true,
   	       username: 'YOUR_USERNAME',
@@ -171,7 +165,7 @@ class DTInit {
     }
 
     private displayVersion(): void {
-        console.log('dt-init v. ' + this.version);
+        this.printInfo('dt-init v. ' + this.version);
         process.exit(0);
     }
 
@@ -189,7 +183,7 @@ class DTInit {
     }
 
     public constructor(module: string, bower?: string, gitFile?: string) {
-        this.version = '1.0.10';
+        this.version = '1.0.11';
       	this.gitFile = null;
         this.bower = false;
         this.colors = true;
