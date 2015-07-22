@@ -6,18 +6,20 @@
 > Like `npm init` but for generating TypeScript definitions and tests stubs.
 
 Install: `npm install -g dt-init`
-    
-    Usage: dt-init module-name [-b|--bower gitconfig][-h|--help|-v|--version]
-    
-    module-name    : Module to generate stubs for.
-    -b | --bower   : Also generate a bower.json package file for client-side dependencies.
-    gitconfig      : Git configuration file to use for user values (instead of default).
-    -h | --help    : Display this usage information and exit.
-    -v | --version : Display application version and exit.
+
+    Usage: dt-init module-name [-b|--bower gitconfig][-h|--help|-v|--version|
+            -c|--configure
+
+    module-name      : Module to generate stubs for.
+    -b | --bower     : Also generate a bower.json package file for client-side dependencies.
+    gitconfig        : Git configuration file to use for user values (instead of default).
+    -h | --help      : Display this usage information and exit.
+    -v | --version   : Display application version and exit.
+    -c | --configure : Write configuration file and exit (destructive).
 
 Running `dt-init module-name -b` will generate the stubs (with *package.json* and *bower.json*) and retrieve the module you plan to write the definitions and tests for. This results in a directory tree such as:
 
-    module-name/ 
+    module-name/
     ├── bower.json
     ├── bower_components
     ├── node_modules
@@ -26,10 +28,10 @@ Running `dt-init module-name -b` will generate the stubs (with *package.json* an
     ├── node_modules
     └── package.json
 
-After you have finished your TypeScript definitions and tests, 
+After you have finished your TypeScript definitions and tests,
 within *module-name* you can invoke `npm test` to compile and run them.
 
-Install the [TypeScript compiler](http://www.typescriptlang.org) first if necessary with: 
+Install the [TypeScript compiler](http://www.typescriptlang.org) first if necessary with:
 `npm install -g typescript`
 
 If you want to use the -b option, you will need to have [Bower](http://bower.io) installed:
