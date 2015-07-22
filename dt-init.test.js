@@ -1,3 +1,6 @@
+/*
+Run tests for dt-init.
+*/
 var DTInit = require('./dt-init-lib'),
     should = require('should'),
       glob = require('glob');

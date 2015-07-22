@@ -31,10 +31,10 @@
     "glob": "~5.0.14",
     "gulp": "~3.9.0",
     "gulp-insert": "~0.4.0",
+    "gulp-remove-markdown": "^1.0.1",
     "gulp-rename": "~1.2.2",
     "gulp-typescript": "~2.8.0",
     "mocha": "~2.2.5",
-    "remove-markdown": "0.0.6",
     "should": "~7.0.2",
     "tsd": "~0.6.3"
   },

@@ -3,11 +3,11 @@
 */
 var gulp = require('gulp'),
       fs = require('fs'),
-     rMD = require('remove-markdown'),
     exec = require('child_process').exec,
      tsc = require('gulp-typescript'),
   rename = require('gulp-rename'),
   insert = require('gulp-insert');
+removeMD = require('gulp-remove-markdown');
 
 var header = '/*\r\ndt-init\r\nUtility to generate TypeScript definitions' +
 ' and test stubs.\r\nCopyright 2015 Sam Saint-Pettersen.\r\n\r\n' +
@@ -29,8 +29,8 @@ gulp.task('typings', function() {
 gulp.task('lib', function() {
     return gulp.src('dt-init-lib.ts')
     .pipe(tsc({
-	module: 'commonjs',
-	removeComments: true
+	     module: 'commonjs',
+	     removeComments: true
     }))
     .pipe(insert.prepend(header))
     .pipe(gulp.dest('.'));
@@ -39,8 +39,8 @@ gulp.task('lib', function() {
 gulp.task('bin', function() {
     return gulp.src('dt-init.ts')
     .pipe(tsc({
-	module: 'commonjs',
-	removeComments: true
+	     module: 'commonjs',
+	     removeComments: true
     }))
     .pipe(insert.prepend(header))
     .pipe(insert.prepend('#!/usr/bin/env node\n'))
@@ -50,14 +50,16 @@ gulp.task('bin', function() {
 });
 
 gulp.task('readme', function() {
-    fs.writeFileSync('readme.txt', rMD(fs.readFileSync('README.markdown').toString()));
+    return gulp.src('README.markdown')
+    .pipe(removeMD())
+    .pipe(gulp.dest('.'));
 });
 
 gulp.task('clean', function() {
     fs.unlinkSync('dt-init-lib.js');
     fs.unlinkSync('dt-init.js');
     fs.unlinkSync('dt-init');
-    fs.unlinkSync('readme.txt');
+    fs.unlinkSync('README.txt');
 });
 
 gulp.task('default', ['lib', 'bin', 'readme'], function(){});
