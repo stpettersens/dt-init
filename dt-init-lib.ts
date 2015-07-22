@@ -9,14 +9,17 @@ Released under the MIT License.
 /// <reference path="typings/node/node.d.ts" />
 /// <reference path="typings/camel-case/camel-case.d.ts" />
 /// <reference path="typings/git-config/git-config.d.ts" />
+/// <reference path="typings/chalk/chalk.d.ts" />
 
 import fs = require('fs');
 import cp = require('child_process');
 import camelCase = require('camel-case');
 import gitConfig = require('git-config');
+import chalk = require('chalk');
 
 class DTInit {
     private version: string;
+    private colors: boolean;
     private module: string;
     private gitFile: string;
     private bower: boolean;
@@ -25,19 +28,54 @@ class DTInit {
     private email: string;
     private license: string;
 
-    private readGitFile(): void {
+    private printError(message: string): void {
+        if(this.colors) {
+            console.log(chalk.bold.red(message));
+        }
+        else console.log(message);
+    }
+
+    private printInfo(message: string): void {
+        if(this.colors) {
+            console.log(chalk.gray(message));
+        }
+        else console.log(message);
+    }
+
+    private hilight(text: string): any {
+        if(this.colors) {
+            return chalk.yellow(text);
+        }
+        return text;
+    }
+
+    private bolden(text: string): any {
+        if(this.colors) {
+            return chalk.bold.white(text);
+        }
+        return text;
+    }
+
+    private writeConfig(force?: boolean): void {
       	var git: Object = gitConfig.sync()
       	if(this.gitFile != null) {
       	    git = gitConfig.sync(this.gitFile);
       	}
-  	    this.fullname = git['user']['name'];
-  	    this.email = git['user']['email'];
+        if(git['user']['name'] != null) {
+          this.fullname = git['user']['name'];
+          this.email = git['user']['email'];
+        }
+        else {
+          this.fullname = 'YOUR_NAME';
+          this.email = 'YOUR_EMAIL_ADDRESS';
+        }
   	    var config: Object = {
+           colors: true,
   	       username: 'YOUR_USERNAME',
   	       fullname: this.fullname,
   	       email: this.email
   	    };
-  	    if(!fs.existsSync('dt-init-config.json')) {
+  	    if(!fs.existsSync('dt-init-config.json') || force) {
   	       fs.writeFileSync('dt-init-config.json', JSON.stringify(config, null, 4));
   	    }
     }
@@ -45,6 +83,7 @@ class DTInit {
     private configure(): void {
       	var cf: any = fs.readFileSync('dt-init-config.json');
       	var config: Object = JSON.parse(cf);
+        this.colors = config['colors'];
       	this.username = config['username'];
       	this.fullname = config['fullname'];
       	this.email = config['email'];
@@ -137,24 +176,34 @@ class DTInit {
     }
 
     private displayHelp(): void {
-        console.log('Utility to generate TypeScript definitions and test stubs.');
-        console.log('Copyright 2015 Sam Saint-Pettersen [MIT License]\n');
-        console.log('Usage: dt-init module-name [-b|--bower gitconfig][-h|--help|-v|--version]\n');
-        console.log('module-name    : Module to generate stubs for.');
-        console.log('-b | --bower   : Also generate a bower.json package file for client-side dependencies.');
-        console.log('gitconfig      : Git configuration file to use for user values (instead of default).');
-        console.log('-h | --help    : Display this usage information and exit.');
-        console.log('-v | --version : Display application version and exit.');
+        this.printInfo('Utility to generate TypeScript definitions and test stubs.');
+        this.printInfo('Copyright 2015 Sam Saint-Pettersen ' + this.hilight('[MIT License].'));
+        console.log('\nUsage: ' + this.bolden('dt-init') + ' module-name [-b|--bower gitconfig][-h|--help|-v|--version|');
+        console.log('\t-c|--configure\n');
+        console.log('module-name      : Module to generate stubs for.');
+        console.log('-b | --bower     : Also generate a bower.json package file for client-side dependencies.');
+        console.log('gitconfig        : Git configuration file to use for user values (instead of default).');
+        console.log('-h | --help      : Display this usage information and exit.');
+        console.log('-v | --version   : Display application version and exit.');
+        console.log('-c | --configure : Write configuration file and exit (destructive).');
     }
 
     public constructor(module: string, bower?: string, gitFile?: string) {
-        this.version = '1.0.9';
+        this.version = '1.0.10';
       	this.gitFile = null;
         this.bower = false;
+        this.colors = true;
+        this.writeConfig();
+        this.configure();
       	if(gitFile != null) {
       	  this.gitFile = gitFile;
       	}
-        if(module == '-h' || module == '--help') {
+        if(module == '-c' || module == '--configure') {
+            this.printInfo('Generation configuration file...');
+            this.writeConfig(true);
+            process.exit(0);
+        }
+        else if(module == '-h' || module == '--help') {
           this.displayHelp();
           process.exit(0);
         }
@@ -162,14 +211,12 @@ class DTInit {
           this.displayVersion();
         }
       	if(module == null || module[0] == '-') {
-          console.log('Please specify a valid module name.\n');
+          this.printError('Please specify a valid module name.\n');
           this.displayHelp();
           process.exit(1);
       	}
       	this.module = module;
-      	console.log('Generating stubs and installing module(s) for ' + this.module + '...');
-      	this.readGitFile();
-      	this.configure();
+      	this.printInfo('Generating stubs and installing module(s) for ' + this.bolden(this.module));
       	this.createDir();
         if(bower == '-b' || bower == '--bower') {
             this.bower = true;
