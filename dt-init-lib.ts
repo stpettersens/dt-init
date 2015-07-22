@@ -179,7 +179,7 @@ class DTInit {
         this.printInfo('Utility to generate TypeScript definitions and test stubs.');
         this.printInfo('Copyright 2015 Sam Saint-Pettersen ' + this.hilight('[MIT License].'));
         console.log('\nUsage: ' + this.bolden('dt-init') + ' module-name [-b|--bower gitconfig][-h|--help|-v|--version|');
-        console.log('\t-c|--configure\n');
+        console.log('\t-c|--configure]\n');
         console.log('module-name      : Module to generate stubs for.');
         console.log('-b | --bower     : Also generate a bower.json package file for client-side dependencies.');
         console.log('gitconfig        : Git configuration file to use for user values (instead of default).');
