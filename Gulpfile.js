@@ -8,7 +8,7 @@ var gulp = require('gulp'),
   rename = require('gulp-rename'),
   insert = require('gulp-insert');
   
-var removeMarkDown = require('gulp-remove-markdown');
+var removeMarkdown = require('gulp-remove-markdown');
 
 var header = '/*\r\ndt-init\r\nUtility to generate TypeScript definitions' +
 ' and test stubs.\r\nCopyright 2015 Sam Saint-Pettersen.\r\n\r\n' +
