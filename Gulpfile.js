@@ -31,7 +31,7 @@ gulp.task('lib', function() {
     return gulp.src('dt-init-lib.ts')
     .pipe(tsc({
     	module: 'commonjs',
-	    removeComments: true
+    	removeComments: true
     }))
     .pipe(insert.prepend(header))
     .pipe(gulp.dest('.'));
