@@ -193,7 +193,7 @@ class DTInit {
       	  this.gitFile = gitFile;
       	}
         if(module == '-c' || module == '--configure') {
-            this.printInfo('Generation configuration file...');
+            this.printInfo('Generating configuration file...');
             this.writeConfig(true);
             process.exit(0);
         }
