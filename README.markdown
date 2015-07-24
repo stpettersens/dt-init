@@ -7,11 +7,12 @@
 
 Install: `npm install -g dt-init`
 
-    Usage: dt-init module-name [-b|--bower gitconfig][-h|--help|-v|--version|
+    Usage: dt-init module-name [-b|--bower|-d|--def-only gitconfig][-h|--help|-v|--version|
             -c|--configure]
 
     module-name      : Module to generate stubs for.
     -b | --bower     : Also generate a bower.json package file for client-side dependencies.
+    -d | --def-only  : Only generate definition and tests.
     gitconfig        : Git configuration file to use for user values (instead of default).
     -h | --help      : Display this usage information and exit.
     -v | --version   : Display application version and exit.

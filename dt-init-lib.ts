@@ -22,6 +22,7 @@ class DTInit {
     private colors: boolean;
     private module: string;
     private gitFile: string;
+    private package: boolean;
     private bower: boolean;
     private username: string;
     private fullname: string;
@@ -107,7 +108,8 @@ class DTInit {
     	     author: this.fullname + ' <' + this.email + '>',
     	     license: this.license
     	  };
-  	   fs.writeFileSync(this.module + '/package.json', JSON.stringify(pkg, null, 4));
+       if(this.package)
+  	     fs.writeFileSync(this.module + '/package.json', JSON.stringify(pkg, null, 4));
     }
 
     private generateBowerPackage(): void {
@@ -161,7 +163,7 @@ class DTInit {
     private installModule(): void {
       	process.chdir(this.module);
         if(this.bower) cp.exec('bower install', function() {});
-      	cp.exec('npm install --save ' + this.module, function() {});
+      	if(this.package) cp.exec('npm install --save ' + this.module, function() {});
     }
 
     private displayVersion(): void {
@@ -172,19 +174,21 @@ class DTInit {
     private displayHelp(): void {
         this.printInfo('Utility to generate TypeScript definitions and test stubs.');
         this.printInfo('Copyright 2015 Sam Saint-Pettersen ' + this.hilight('[MIT License].'));
-        console.log('\nUsage: ' + this.bolden('dt-init') + ' module-name [-b|--bower gitconfig][-h|--help|-v|--version|');
+        console.log('\nUsage: ' + this.bolden('dt-init') + ' module-name [-b|--bower|-d|--def-only gitconfig][-h|--help|-v|--version|');
         console.log('\t-c|--configure]\n');
         console.log('module-name      : Module to generate stubs for.');
         console.log('-b | --bower     : Also generate a bower.json package file for client-side dependencies.');
+        console.log('-d | --def-only  : Only generate definition and tests.');
         console.log('gitconfig        : Git configuration file to use for user values (instead of default).');
         console.log('-h | --help      : Display this usage information and exit.');
         console.log('-v | --version   : Display application version and exit.');
         console.log('-c | --configure : Write configuration file and exit (destructive).');
     }
 
-    public constructor(module: string, bower?: string, gitFile?: string) {
-        this.version = '1.0.11';
+    public constructor(module: string, option?: string, gitFile?: string) {
+        this.version = '1.0.12';
       	this.gitFile = null;
+        this.package = true;
         this.bower = false;
         this.colors = true;
         this.writeConfig();
@@ -210,11 +214,14 @@ class DTInit {
           process.exit(1);
       	}
       	this.module = module;
-      	this.printInfo('Generating stubs and installing module(s) for ' + this.bolden(this.module));
+      	this.printInfo('Generating stubs and/or installing module(s) for ' + this.bolden(this.module));
       	this.createDir();
-        if(bower == '-b' || bower == '--bower') {
+        if(option == '-b' || option == '--bower') {
             this.bower = true;
             this.generateBowerPackage();
+        }
+        if(option == '-d' || option == '--def-only') {
+            this.package = false;
         }
         this.generateNpmPackage();
       	this.generateDefStub();
