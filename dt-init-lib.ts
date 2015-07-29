@@ -255,7 +255,7 @@ class DTInit {
      * @param {string} option - First or second option.
      * @param {string} gitFile - Path to Git configuration file to use.
     */
-    public constructor(module: string, option?: string, gitFile?: string) {
+    constructor(module: string, option?: string, gitFile?: string) {
         this.version = '1.0.12';
       	this.gitFile = null;
         this.package = true;
