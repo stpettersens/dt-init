@@ -2,6 +2,7 @@
 .gitignore
 .travis.yml
 *.ts
+doc/
 typings/
 dt-init.test.js
 Gulpfile.js

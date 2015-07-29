@@ -5,6 +5,7 @@ var gulp = require('gulp'),
       fs = require('fs'),
     exec = require('child_process').exec,
      tsc = require('gulp-typescript'),
+ typedoc = require('gulp-typedoc'),
   rename = require('gulp-rename'),
   insert = require('gulp-insert');
 
@@ -44,6 +45,15 @@ gulp.task('readme', function() {
     return gulp.src('README.markdown')
     .pipe(removeMarkdown())
     .pipe(gulp.dest('.'));
+});
+
+gulp.task('doc', function() {
+    return gulp.src('*.ts')
+    .pipe(typedoc({
+        module: 'commonjs',
+        out: './doc',
+        json: './doc/doc.json'
+    }));
 });
 
 gulp.task('clean', function() {

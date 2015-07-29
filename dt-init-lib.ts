@@ -29,6 +29,11 @@ class DTInit {
     private email: string;
     private license: string;
 
+    /**
+     * Print an error message.
+     * @private
+     * @param {string} message - Error message to print.
+    */
     private printError(message: string): void {
         if(this.colors) {
             console.log(chalk.bold.red(message));
@@ -36,6 +41,11 @@ class DTInit {
         else console.log(message);
     }
 
+    /**
+     * Print an information message.
+     * @private
+     * @param {string} message - Information message to print.
+    */
     private printInfo(message: string): void {
         if(this.colors) {
             console.log(chalk.gray(message));
@@ -43,6 +53,12 @@ class DTInit {
         else console.log(message);
     }
 
+    /**
+     * Highlight some text.
+     * @private
+     * @param {string} text - Text to highlight.
+     * @returns {any} Highlighted text.
+    */
     private hilight(text: string): any {
         if(this.colors) {
             return chalk.yellow(text);
@@ -50,13 +66,24 @@ class DTInit {
         return text;
     }
 
-    private bolden(text: string): any {
+    /**
+     * Some text to embolden.
+     * @private
+     * @param {string} text - Text to embolden.
+     * @returns {any} Bold text.
+    */
+    private embolden(text: string): any {
         if(this.colors) {
             return chalk.bold.white(text);
         }
         return text;
     }
 
+    /**
+     * Write configuration file.
+     * @private
+     * @param {boolean} force - Force writing of configuration?
+    **/
     private writeConfig(force?: boolean): void {
       	var git: Object = gitConfig.sync()
       	if(this.gitFile != null) {
@@ -75,6 +102,10 @@ class DTInit {
   	    }
     }
 
+    /**
+     * Apply configuration.
+     * @private
+    */
     private configure(): void {
       	var cf: any = fs.readFileSync('dt-init-config.json');
       	var config: Object = JSON.parse(cf);
@@ -85,10 +116,18 @@ class DTInit {
       	this.license = config['license'];
     }
 
+    /** 
+     * Create a directory for new typings and tests stubs.
+     * @private
+    */
     private createDir(): void {
       	 fs.mkdirSync(this.module);
     }
 
+    /**
+     * Generate an NPM package file (package.json).
+     * @private
+    */
     private generateNpmPackage(): void {
         var dt: string = 'dt-' + this.module;
   	    var def: string = this.module + '.d.ts';
@@ -112,6 +151,10 @@ class DTInit {
   	     fs.writeFileSync(this.module + '/package.json', JSON.stringify(pkg, null, 4));
     }
 
+    /**
+     * Generate a Bower package file (bower.json).
+     * @private
+    */
     private generateBowerPackage(): void {
         var dt: string = 'dt-' + this.module;
         var def: string = this.module + '.d.ts';
@@ -143,6 +186,10 @@ class DTInit {
         fs.writeFileSync(this.module + '/bower.json', JSON.stringify(pkg, null, 4));
     }
 
+    /**
+     * Generate TypeScript definition stub.
+     * @private
+    */
     private generateDefStub(): void {
       	var def: string = '// Type definitions for ' + this.module + '\r\n' +
       	'// Project: https://github.com/USERNAME/' + this.module + '\r\n' +
@@ -153,6 +200,10 @@ class DTInit {
       	fs.writeFileSync(this.module + '/' + this.module + '.d.ts', def);
     }
 
+    /**
+     * Generate TypeScript definition tests stub.
+     * @private
+    */
     private generateTestStub(): void {
       	var tests: string = '/// <reference path="' + this.module + '.d.ts" />\r\n' +
       	'\r\nimport ' + camelCase(this.module) + ' = require(\'' + this.module + '\');\r\n\r\n' +
@@ -160,21 +211,33 @@ class DTInit {
       	fs.writeFileSync(this.module + '/' + this.module + '-tests.ts', tests);
     }
 
+    /**
+     * Install any dependencies for generated definition and tests.
+     * @private
+    */
     private installModule(): void {
       	process.chdir(this.module);
         if(this.bower) cp.exec('bower install', function() {});
       	if(this.package) cp.exec('npm install --save ' + this.module, function() {});
     }
 
+    /**
+     * Display version and exit.
+     * @private
+    */
     private displayVersion(): void {
         this.printInfo('dt-init v. ' + this.version);
         process.exit(0);
     }
 
+    /**
+     * Display usage information and exit.
+     * @private
+    */
     private displayHelp(): void {
         this.printInfo('Utility to generate TypeScript definitions and test stubs.');
         this.printInfo('Copyright 2015 Sam Saint-Pettersen ' + this.hilight('[MIT License].'));
-        console.log('\nUsage: ' + this.bolden('dt-init') + ' module-name [-b|--bower|-d|--def-only gitconfig][-h|--help|-v|--version|');
+        console.log('\nUsage: ' + this.embolden('dt-init') + ' module-name [-b|--bower|-d|--def-only gitconfig][-h|--help|-v|--version|');
         console.log('\t-c|--configure]\n');
         console.log('module-name      : Module to generate stubs for.');
         console.log('-b | --bower     : Also generate a bower.json package file for client-side dependencies.');
@@ -185,6 +248,13 @@ class DTInit {
         console.log('-c | --configure : Write configuration file and exit (destructive).');
     }
 
+    /**
+     * DTInit implements functionality of dt-init program.
+     * @constructor
+     * @param {string} module - Module or first option.
+     * @param {string} option - First or second option.
+     * @param {string} gitFile - Path to Git configuration file to use.
+    */
     public constructor(module: string, option?: string, gitFile?: string) {
         this.version = '1.0.12';
       	this.gitFile = null;
@@ -214,7 +284,7 @@ class DTInit {
           process.exit(1);
       	}
       	this.module = module;
-      	this.printInfo('Generating stubs and/or installing module(s) for ' + this.bolden(this.module));
+      	this.printInfo('Generating stubs and/or installing module(s) for ' + this.embolden(this.module));
       	this.createDir();
         if(option == '-b' || option == '--bower') {
             this.bower = true;
