@@ -1,7 +1,6 @@
 #
 # Travis-CI configuration for dt-init.
 #
-
 sudo: false
 language: node_js
 node_js:
