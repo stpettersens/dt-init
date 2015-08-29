@@ -36,7 +36,7 @@
     "gulp-typedoc": "^1.2.1",
     "gulp-typescript": "~2.8.0",
     "mocha": "~2.2.5",
-    "should": "~7.0.2",
+    "should": "~7.1.0",
     "tsd": "^0.6.3"
   },
   "dependencies": {
