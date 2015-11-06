@@ -3,7 +3,7 @@
 */
 var gulp = require('gulp'),
       fs = require('fs'),
-    exec = require('child_process').exec,
+   _exec = require('child_process').exec,
      tsc = require('gulp-typescript'),
  typedoc = require('gulp-typedoc'),
   rename = require('gulp-rename'),
@@ -16,7 +16,7 @@ var header = '/*\r\ndt-init\r\nUtility to generate TypeScript definitions' +
 'Released under the MIT License.\r\n*/\r\n';
 
 gulp.task('typings', function() {
-    exec('tsd install', function() {});
+    _exec('tsd install', function() {});
 });
 
 gulp.task('lib', function() {
