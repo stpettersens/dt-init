@@ -34,8 +34,8 @@
     "gulp-remove-markdown": "^1.0.1",
     "gulp-rename": "~1.2.2",
     "gulp-typedoc": "^1.2.1",
-    "gulp-typescript": "~2.8.0",
-    "mocha": "~2.2.5",
+    "gulp-typescript": "~2.9.2",
+    "mocha": "~2.3.3",
     "should": "~7.1.0",
     "tsd": "^0.6.3"
   },
