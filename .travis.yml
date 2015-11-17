@@ -8,7 +8,8 @@ node_js:
     - "0.10"
     - 0.11
 
+# Install TSD to retrive used definitions from DefinitelyTyped.
 # Install TypeScript compiler to compile definitions and test files.
 # Build dt-init from TypeScript source first (but this uses gulp-typescript).
-before_script: npm install -g typescript && npm run build
+before_script: npm install -g tsd && npm install -g typescript && npm run build
 script: ./test-mocha # Invoke mocha tests for dt-init.
